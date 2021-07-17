@@ -1,0 +1,42 @@
+#listener_container {
+    position: absolute;
+    visibility: hidden;
+}
+
+#container {
+    position: relative;
+}
+
+#video {
+    transform: scaleX(-1);
+    opacity: 0;
+}
+
+#canvas {
+    transform: scaleX(-1);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#listener_sentence {
+    font-size: 40px;
+}
+
+#head_dot_field {
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+#head_dot {
+    position: absolute;
+    opacity: 1.0;
+    right: 200px;
+    bottom: 150px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: black;
+    visibility: visible;
+}

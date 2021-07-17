@@ -1,0 +1,8 @@
+#receiver_container {
+    position: absolute;
+    visibility: hidden;
+}
+
+#time_count {
+    font-size: 40px;
+}

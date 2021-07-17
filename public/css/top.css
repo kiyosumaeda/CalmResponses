@@ -1,0 +1,49 @@
+#main_container {
+    position: relative;
+}
+
+#top_container {
+    position: absolute;
+    visibility: visible;
+    width: 90%;
+}
+
+#receiver_start_button {
+    display: inline-block;
+    text-decoration: none;
+    color: #FF8972;
+    width: 360px;
+    height: 360px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: solid 2px #FF8972;
+    text-align: center;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 50px;
+    transition: .4s;
+}
+
+#receiver_start_button:hover {
+    background: #b3e1ff;
+}
+
+#sender_start_button {
+    display: inline-block;
+    text-decoration: none;
+    color: #FF8972;
+    width: 360px;
+    height: 360px;
+    line-height: 120px;
+    border-radius: 50%;
+    border: solid 2px #FF8972;
+    text-align: center;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 50px;
+    transition: .4s;
+}
+
+#sender_start_button:hover {
+    background: #b3e1ff;
+}
