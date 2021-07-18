@@ -9,11 +9,10 @@ var listener_container = document.getElementById("listener_container");
 var receiver_container = document.getElementById("receiver_container");
 var receiver_time_count = document.getElementById("time_count");
 
-var admin_container = document.getElementById("admin_container");
-var admin_timer_reset = document.getElementById("timer_reset_button");
-var admin_timer_start = document.getElementById("timer_start_button");
-var admin_system_on = document.getElementById("system_on_button");
-var admin_system_off = document.getElementById("system_off_button");
+var system_timer_reset = document.getElementById("timer_reset_button");
+var system_timer_start = document.getElementById("timer_start_button");
+var system_on = document.getElementById("system_on_button");
+var system_off = document.getElementById("system_off_button");
 
 var receiver_canvas = document.getElementById("receiver_canvas");
 var receiver_context = receiver_canvas.getContext("2d");
@@ -31,16 +30,6 @@ var is_top = true;
 var is_speech_starting = true;
 var max_time = 60;
 var time_count = max_time;
-
-document.body.addEventListener("keydown",
-    event => {
-        if (event.key === "i") {
-            if (is_top) {
-                switchAdmin();
-            }
-        }
-    }
-)
 
 //listener screen component
 var video;
@@ -63,11 +52,6 @@ var message_json = {
 var admin_message_json = {
     label: "admin",
     mode: 1
-};
-
-var admin_timer_message_json = {
-    label: "admin_timer",
-    command: "timer_reset"
 };
 
 //menu screen
@@ -165,6 +149,11 @@ function showData(pos) {
 
 //receiver menu
 function startReceiver() {
+    system_timer_reset.addEventListener("click", SystemTimerReset);
+    system_timer_start.addEventListener("click", SystemTimerStart);
+    system_on.addEventListener("click", SystemOn);
+    system_off.addEventListener("click", SystemOff);
+
     message_json.label = "receiver";
     var message_string = JSON.stringify(message_json);
     while(ws == null) {
@@ -213,14 +202,6 @@ function startReceiver() {
             } else {
                 is_system_condition = true;
             }
-        } else if (server_message.label == "admin_timer") {
-            if (server_message.command == "timer_reset") {
-                time_count = max_time;
-                receiver_time_count.innerHTML = time_count;
-                is_speech_starting = false;
-            } else if (server_message.command == "timer_start") {
-                is_speech_starting = true;
-            }
         }
     });
 
@@ -237,27 +218,14 @@ function UpdateTimer() {
     }
 }
 
-function switchAdmin() {
-    top_container.style.visibility = "hidden";
-    admin_container.style.visibility = "visible";
-    is_top = false;
-
-    admin_timer_reset.addEventListener("click", AdminTimerReset);
-    admin_timer_start.addEventListener("click", AdminTimerStart);
-    admin_system_on.addEventListener("click", SystemOn);
-    admin_system_off.addEventListener("click", SystemOff);
+function SystemTimerReset() {
+    time_count = max_time;
+    receiver_time_count.innerHTML = time_count;
+    is_speech_starting = false;
 }
 
-function AdminTimerReset() {
-    admin_timer_message_json.command = "timer_reset";
-    var admin_timer_message_string = JSON.stringify(admin_timer_message_json);
-    ws.send(admin_timer_message_string);
-}
-
-function AdminTimerStart() {
-    admin_timer_message_json.command = "timer_start";
-    var admin_timer_message_string = JSON.stringify(admin_timer_message_json);
-    ws.send(admin_timer_message_string);
+function SystemTimerStart() {
+    is_speech_starting = true;
 }
 
 function SystemOn() {

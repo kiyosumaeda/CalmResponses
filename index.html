@@ -18,8 +18,22 @@
 <body>
     <div id="main_container">
         <div id="top_container">
-            <button id="receiver_start_button">speaker</button>
-            <button id="sender_start_button">audience</button>
+            <p id="title">Reaction Feedback System</p>
+            <p id="explanation">このシステムはオンラインで話者に対して反応を返すことのできるシステムです。</p>
+            <div id="client_select_container">
+                <p id="client_label">クライアントを選択</p>
+                <label><input type="radio" name="client_type" value="audience" checked>audience</label>
+                <label><input type="radio" name="client_type" value="speaker">speaker</label>
+            </div>
+            <div id="reaction_select_container">
+                <p id="reaction_label">反応を選択</p>
+                <label><input type="radio" name="reaction_type" value="gaze">gaze</label>
+                <label><input type="radio" name="reaction_type" value="nodding">head orientation</label>
+            </div>
+            <p></p>
+            <button id="start_system">start</button>
+            <!-- <button id="receiver_start_button">speaker</button>
+            <button id="sender_start_button">audience</button> -->
         </div>
         <div id="listener_container">
             <div id="container">
@@ -36,8 +50,6 @@
         <div id="receiver_container">
             <canvas id="receiver_canvas"></canvas>
             <p>残り <span id="time_count">60</span> 秒</p>
-        </div>
-        <div id="admin_container">
             <button id="timer_reset_button">reset</button>
             <button id="timer_start_button">start</button>
             <button id="system_on_button">on</button>
