@@ -30,21 +30,9 @@ var nod_prev_pos_y = 0.0;
 var nod_prev_time;
 var nod_coef = 0.5;
 
-var nod_audience_message_json = {
-    publisher: "nod_audience",
-    label: "init",
-    x: 0,
-    y: 0,
-    id: 0
-};
+var nod_audience_data = new NodAudienceData();
 
-var nod_speaker_message_json = {
-    publisher: "nod_speaker",
-    label: "init",
-    x: 0,
-    y: 0,
-    id: 0
-};
+var nod_speaker_data = new NodSpeakerData();
 
 function checkConnection() {
     while (ws == null) {
@@ -60,14 +48,14 @@ function startNodAudience() {
     nod_audience_canvas = document.getElementById("nod_audience_canvas");
     nod_audience_context = nod_audience_canvas.getContext("2d");
 
-    var nod_audience_message_str = JSON.stringify(nod_audience_message_json);
+    var nod_audience_message_str = JSON.stringify(nod_audience_data);
     checkConnection();
     ws.send(nod_audience_message_str);
-    nod_audience_message_json.label = "data";
     ws.addEventListener("message", function(e) {
         var received_msg = JSON.parse(e.data);
-        if (received_msg.publisher == "server") {
-            nod_audience_message_json.id = received_msg.your_id;
+        if (received_msg.name == NAME.SERVER) {
+            nod_audience_data.user_id = received_msg.your_id;
+            nod_audience_data.status = STATUS.DATA;
         }
     });
 
@@ -109,9 +97,9 @@ function showData(pos) {
     var velocity_y = (current_pos_y - nod_prev_pos_y) / time_diff * 4000.0 * nod_coef;
     str = "feature" + 62 + ": (" + velocity_x + ", " + velocity_y + ")";
     // UpdateHeadDot(velocity_x, velocity_y, 0);
-    nod_audience_message_json.x = velocity_x;
-    nod_audience_message_json.y = velocity_y;
-    ws.send(JSON.stringify(nod_audience_message_json));
+
+    nod_audience_data.updateData([velocity_x, velocity_y]);
+    ws.send(JSON.stringify(nod_audience_data));
     nod_prev_pos_x = current_pos_x;
     nod_prev_pos_y = current_pos_y;
     nod_prev_time = current_time;
@@ -129,15 +117,16 @@ var cursor_positions = [];
 var velocity_ratio = 0.05;
 
 function startNodSpeaker() {
-    var nod_speaker_msg_str = JSON.stringify(nod_speaker_message_json);
+    var nod_speaker_msg_str = JSON.stringify(nod_speaker_data);
     checkConnection();
     ws.send(nod_speaker_msg_str);
     ws.addEventListener("message", function(e) {
         var received_msg = JSON.parse(e.data);
-        if (received_msg.publisher == "server") {
+        // console.log(received_msg);
+        if (received_msg.name == NAME.SERVER) {
             nod_speaker_msg_str.id = received_msg.your_id;
-        } else if (received_msg.label == "data") {
-            var audience_id = received_msg.id;
+        } else if (received_msg.status == STATUS.DATA) {
+            var audience_id = received_msg.user_id;
             while (audience_id > cursor_positions.length) {
                 cursor_positions.push([0, 0]);
             }
@@ -145,7 +134,7 @@ function startNodSpeaker() {
             nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
             nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
 
-            var next_velocity = [received_msg.x, received_msg.y];
+            var next_velocity = [received_msg.v_x, received_msg.v_y];
             var old_velocity = cursor_positions[audience_id-1];
             var new_x = next_velocity[0] * velocity_ratio + old_velocity[0] * (1-velocity_ratio);
             var new_y = next_velocity[1] * velocity_ratio + old_velocity[1] * (1-velocity_ratio);

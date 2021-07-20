@@ -16,8 +16,7 @@ var senderClients = [];
 var receiverClients = [];
 
 var to_client_json = {
-    publisher: "server",
-    label: "id_issue",
+    name: "server",
     your_id: 0
 };
 
@@ -55,32 +54,22 @@ wss.on("connection", (ws) => {
 
     ws.on("message", message => {
         var message_json = JSON.parse(message);
-        // console.log(message_json);
-        if (message_json.publisher == "nod_audience") {
-            senderClients.push(ws);
-            to_client_json.your_id = senderClients.length;
-            ws.send(JSON.stringify(to_client_json));
+        console.log(message_json);
+        if (message_json.name == "audience") {
+            if (message_json.status == "start") {
+                senderClients.push(ws);
+                to_client_json.your_id = senderClients.length;
+                ws.send(JSON.stringify(to_client_json));
+            }
         }
 
-        if (message_json.publisher == "nod_speaker") {
+        if (message_json.name == "speaker") {
             receiverClients.push(ws);
             to_client_json.your_id = receiverClients.length;
             ws.send(JSON.stringify(to_client_json));
         }
 
-        if (message_json.label == "data") {
-            receiverClients.forEach(receiver => {
-                receiver.send(message);
-            });
-        }
-
-        if (message_json.label == "admin") {
-            receiverClients.forEach(receiver => {
-                receiver.send(message);
-            });
-        }
-
-        if (message_json.label == "admin_timer") {
+        if (message_json.status == "data") {
             receiverClients.forEach(receiver => {
                 receiver.send(message);
             });
