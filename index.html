@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calm Responses</title>
-    <script>
+    <!-- <script>
         let host = location.origin.replace(/^http/, "ws");
         let ws = new WebSocket(host);
         let el;
-    </script>
+    </script> -->
     <meta charset="utf-8"><link rel="stylesheet" href="css/top.css">
     <meta charset="utf-8"><link rel="stylesheet" href="css/listener.css">
     <meta charset="utf-8"><link rel="stylesheet" href="css/receiver.css">
@@ -35,10 +35,10 @@
             <!-- <button id="receiver_start_button">speaker</button>
             <button id="sender_start_button">audience</button> -->
         </div>
-        <div id="listener_container">
+        <div id="nod_audience_container">
             <div id="container">
-                <video id="video" width="800" height="600" autoplay></video>
-                <canvas id="canvas" width="800" height="600"></canvas>
+                <video id="nod_audience_video" width="800" height="600" autoplay></video>
+                <canvas id="nod_audience_canvas" width="800" height="600"></canvas>
                 <!-- <div id="head_dot_field">
                     <p id="head_dot"></p>
                 </div> -->
@@ -47,7 +47,8 @@
                 <p id="listener_sentence">このタブを開いたままzoomの画面に切り替えてください。</p>
             </div> -->
         </div>
-        <div id="receiver_container">
+        <div id="nod_speaker_container">
+            <p>nod speaker client</p>
             <canvas id="receiver_canvas"></canvas>
             <p>残り <span id="time_count">60</span> 秒</p>
             <button id="timer_reset_button">reset</button>
@@ -58,6 +59,7 @@
 
         <script src="js/clmtrackr.js"></script>
         <script src="js/model_pca_20_svm.js"></script>
+        <script src="js/nod_reaction.js"></script>
         <script src="js/top.js"></script>
     </div>
 </body>

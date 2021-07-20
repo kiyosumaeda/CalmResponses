@@ -54,6 +54,7 @@ wss.on("connection", (ws) => {
 
     ws.on("message", message => {
         var message_json = JSON.parse(message);
+        console.log(message_json);
         if (message_json.label == "sender") {
             senderClients.push(ws);
             to_client_json.your_id = senderClients.length;

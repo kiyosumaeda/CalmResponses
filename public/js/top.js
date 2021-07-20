@@ -1,12 +1,8 @@
 //menu screen component
-var receiver_start_button = document.getElementById("receiver_start_button");
-var sender_start_button = document.getElementById("sender_start_button");
+var start_system_button = document.getElementById("start_system");
 
 var top_container = document.getElementById("top_container");
 
-var listener_container = document.getElementById("listener_container");
-
-var receiver_container = document.getElementById("receiver_container");
 var receiver_time_count = document.getElementById("time_count");
 
 var system_timer_reset = document.getElementById("timer_reset_button");
@@ -25,7 +21,6 @@ var cursor_positions = [];
 var velocity_ratio = 0.05;
 
 var is_system_condition = true;
-var is_top = true;
 
 var is_speech_starting = true;
 var max_time = 60;
@@ -55,96 +50,33 @@ var admin_message_json = {
 };
 
 //menu screen
-receiver_start_button.addEventListener("click", switchReceiver);
-sender_start_button.addEventListener("click", switchListener);
+start_system_button.addEventListener("click", startSystem);
 
-function switchReceiver() {
-    top_container.style.visibility = "hidden";
-    receiver_container.style.visibility = "visible";
-    is_top = false;
-    startReceiver();
-}
+function startSystem() {
+    var client_type_radios = document.getElementsByName("client_type");
+    var reaction_type_radios = document.getElementsByName("reaction_type");
 
-function switchListener() {
-    top_container.style.visibility = "hidden";
-    listener_container.style.visibility = "visible";
-    is_top = false;
-    startListener();
-}
-
-//listener screen
-function startListener() {
-    video = document.getElementById("video");
-    canvas = document.getElementById("canvas");
-    context = canvas.getContext("2d");
-
-    var message_string = JSON.stringify(message_json);
-    while(ws == null) {
-        console.log("cccccccccccc");
-    }
-    if (ws != null) {
-        console.log("already connected");
-    }
-    ws.send(message_string);
-    message_json.label = "head_velocity";
-    ws.addEventListener("message", function(e) {
-        // console.log(e.data);
-        var message_string = JSON.parse(e.data);
-        console.log(message_string.label);
-        if (message_string.label == "server") {
-            message_json.id = message_string.your_id;
-        } else if (message_string.label == "disconnected_user") {
-            // console.log(e.data);
-            // if (message_string.id < message_json.id) {
-            //     message_json.id -= 1;
-            // }
+    for (var c_i=0; c_i<client_type_radios.length; c_i++) {
+        if (client_type_radios[c_i].checked) {
+            break;
         }
-    });
-
-    media = navigator.mediaDevices.getUserMedia({
-        video: {facingMode: "user"},
-        audio: false
-    });
-    media.then((stream) => {
-        video.srcObject = stream;
-    });
-    
-    tracker = new clm.tracker();
-    tracker.init(pModel);
-    tracker.start(video);
-
-    prev_time = new Date();
-    drawLoop();
-}
-
-function drawLoop() {
-    requestAnimationFrame(drawLoop);
-    var positions = tracker.getCurrentPosition();
-    if (positions != undefined) {
-        showData(positions);
     }
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    // tracker.draw(canvas);
-}
 
-function showData(pos) {
-    var str = "";
-    //62 is a nose tip position
-    var current_pos_x = pos[62][0];
-    var current_pos_y = pos[62][1];
-    var current_time = new Date();
-    var time_diff = current_time.getTime() - prev_time.getTime();
-    var velocity_x = (current_pos_x - prev_pos_x) / time_diff * 400.0 * coef;
-    var velocity_y = (current_pos_y - prev_pos_y) / time_diff * 4000.0 * coef;
-    str = "feature" + 62 + ": (" + velocity_x + ", " + velocity_y + ")";
-    // UpdateHeadDot(velocity_x, velocity_y, 0);
-    message_json.x = velocity_x;
-    message_json.y = velocity_y;
-    ws.send(JSON.stringify(message_json));
-    prev_pos_x = current_pos_x;
-    prev_pos_y = current_pos_y;
-    prev_time = current_time;
-    // dat.innerHTML = str;
+    for (var r_i=0; r_i<reaction_type_radios.length; r_i++) {
+        if (reaction_type_radios[r_i].checked) {
+            break;
+        }
+    }
+
+    var client_type_val = client_type_radios[c_i].value;
+    var reaction_type_val = reaction_type_radios[r_i].value;
+
+    if (reaction_type_val == "nodding") {
+        top_container.style.visibility = "hidden";
+        startNod(client_type_val);
+    } else {
+
+    }
 }
 
 //receiver menu
