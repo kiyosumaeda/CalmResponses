@@ -16,7 +16,8 @@ var senderClients = [];
 var receiverClients = [];
 
 var to_client_json = {
-    label: "server",
+    publisher: "server",
+    label: "id_issue",
     your_id: 0
 };
 
@@ -54,20 +55,20 @@ wss.on("connection", (ws) => {
 
     ws.on("message", message => {
         var message_json = JSON.parse(message);
-        console.log(message_json);
-        if (message_json.label == "sender") {
+        // console.log(message_json);
+        if (message_json.publisher == "nod_audience") {
             senderClients.push(ws);
             to_client_json.your_id = senderClients.length;
             ws.send(JSON.stringify(to_client_json));
         }
 
-        if (message_json.label == "receiver") {
+        if (message_json.publisher == "nod_speaker") {
             receiverClients.push(ws);
             to_client_json.your_id = receiverClients.length;
             ws.send(JSON.stringify(to_client_json));
         }
 
-        if (message_json.label == "head_velocity") {
+        if (message_json.label == "data") {
             receiverClients.forEach(receiver => {
                 receiver.send(message);
             });

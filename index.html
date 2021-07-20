@@ -28,7 +28,7 @@
             <div id="reaction_select_container">
                 <p id="reaction_label">反応を選択</p>
                 <label><input type="radio" name="reaction_type" value="gaze">gaze</label>
-                <label><input type="radio" name="reaction_type" value="nodding">head orientation</label>
+                <label><input type="radio" name="reaction_type" value="nodding" checked>head orientation</label>
             </div>
             <p></p>
             <button id="start_system">start</button>
@@ -49,7 +49,7 @@
         </div>
         <div id="nod_speaker_container">
             <p>nod speaker client</p>
-            <canvas id="receiver_canvas"></canvas>
+            <canvas id="nod_speaker_canvas"></canvas>
             <p>残り <span id="time_count">60</span> 秒</p>
             <button id="timer_reset_button">reset</button>
             <button id="timer_start_button">start</button>

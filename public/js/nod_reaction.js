@@ -38,18 +38,30 @@ var nod_audience_message_json = {
     id: 0
 };
 
-function startNodAudience() {
-    nod_audience_video = document.getElementById("nod_audience_video");
-    nod_audience_canvas = document.getElementById("nod_audience_canvas");
-    nod_audience_context = nod_audience_canvas.getContext("2d");
+var nod_speaker_message_json = {
+    publisher: "nod_speaker",
+    label: "init",
+    x: 0,
+    y: 0,
+    id: 0
+};
 
-    var nod_audience_message_str = JSON.stringify(nod_audience_message_json);
+function checkConnection() {
     while (ws == null) {
         console.log("connecting ...");
     }
     if (ws != null) {
         console.log("already connected");
     }
+}
+
+function startNodAudience() {
+    nod_audience_video = document.getElementById("nod_audience_video");
+    nod_audience_canvas = document.getElementById("nod_audience_canvas");
+    nod_audience_context = nod_audience_canvas.getContext("2d");
+
+    var nod_audience_message_str = JSON.stringify(nod_audience_message_json);
+    checkConnection();
     ws.send(nod_audience_message_str);
     nod_audience_message_json.label = "data";
     ws.addEventListener("message", function(e) {
@@ -106,6 +118,44 @@ function showData(pos) {
     // dat.innerHTML = str;
 }
 
-function startNodSpeaker() {
+var nod_speaker_canvas = document.getElementById("nod_speaker_canvas");
+var nod_speaker_context = nod_speaker_canvas.getContext("2d");
+nod_speaker_canvas_width = 600;
+nod_speaker_canvas_height = 600;
+nod_speaker_canvas.width = nod_speaker_canvas_width;
+nod_speaker_canvas.height = nod_speaker_canvas_height;
 
+var cursor_positions = [];
+var velocity_ratio = 0.05;
+
+function startNodSpeaker() {
+    var nod_speaker_msg_str = JSON.stringify(nod_speaker_message_json);
+    checkConnection();
+    ws.send(nod_speaker_msg_str);
+    ws.addEventListener("message", function(e) {
+        var received_msg = JSON.parse(e.data);
+        if (received_msg.publisher == "server") {
+            nod_speaker_msg_str.id = received_msg.your_id;
+        } else if (received_msg.label == "data") {
+            var audience_id = received_msg.id;
+            while (audience_id > cursor_positions.length) {
+                cursor_positions.push([0, 0]);
+            }
+
+            nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
+            nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
+
+            var next_velocity = [received_msg.x, received_msg.y];
+            var old_velocity = cursor_positions[audience_id-1];
+            var new_x = next_velocity[0] * velocity_ratio + old_velocity[0] * (1-velocity_ratio);
+            var new_y = next_velocity[1] * velocity_ratio + old_velocity[1] * (1-velocity_ratio);
+            cursor_positions[audience_id-1] = [new_x, new_y];
+            nod_speaker_context.beginPath();
+            var cursor_pos_x = cursor_positions[audience_id-1][0] + nod_speaker_canvas_width/2;
+            var cursor_pos_y = cursor_positions[audience_id-1][1] + nod_speaker_canvas_height/2;
+            nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, 4, 0, Math.PI*2, false);
+            nod_speaker_context.fillStyle = "#3cb371";
+            nod_speaker_context.fill();
+        }
+    });
 }
