@@ -94,7 +94,7 @@ function showData(pos) {
     var current_time = new Date();
     var time_diff = current_time.getTime() - nod_prev_time.getTime();
     var velocity_x = (current_pos_x - nod_prev_pos_x) / time_diff * 400.0 * nod_coef;
-    var velocity_y = (current_pos_y - nod_prev_pos_y) / time_diff * 4000.0 * nod_coef;
+    var velocity_y = (current_pos_y - nod_prev_pos_y) / time_diff * 6000.0 * nod_coef;
     str = "feature" + 62 + ": (" + velocity_x + ", " + velocity_y + ")";
     // UpdateHeadDot(velocity_x, velocity_y, 0);
 
@@ -109,11 +109,14 @@ function showData(pos) {
 var nod_speaker_canvas = document.getElementById("nod_speaker_canvas");
 var nod_speaker_context = nod_speaker_canvas.getContext("2d");
 nod_speaker_canvas_width = 600;
-nod_speaker_canvas_height = 600;
+nod_speaker_canvas_height = 400;
 nod_speaker_canvas.width = nod_speaker_canvas_width;
 nod_speaker_canvas.height = nod_speaker_canvas_height;
 
 var cursor_positions = [];
+var cursor_x_offset = [];
+var x_offset_min = -100.0;
+var x_offset_max = 100.0;
 var velocity_ratio = 0.05;
 
 function startNodSpeaker() {
@@ -129,6 +132,8 @@ function startNodSpeaker() {
             var audience_id = received_msg.user_id;
             while (audience_id > cursor_positions.length) {
                 cursor_positions.push([0, 0]);
+                var random_x_offset = Math.random() * (x_offset_max - x_offset_min) + x_offset_min;
+                cursor_x_offset.push(random_x_offset);
             }
 
             nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
@@ -140,10 +145,10 @@ function startNodSpeaker() {
             var new_y = next_velocity[1] * velocity_ratio + old_velocity[1] * (1-velocity_ratio);
             cursor_positions[audience_id-1] = [new_x, new_y];
             nod_speaker_context.beginPath();
-            var cursor_pos_x = cursor_positions[audience_id-1][0] + nod_speaker_canvas_width/2;
+            var cursor_pos_x = cursor_positions[audience_id-1][0] + nod_speaker_canvas_width/2 + cursor_x_offset[audience_id-1];
             var cursor_pos_y = cursor_positions[audience_id-1][1] + nod_speaker_canvas_height/2;
             nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, 4, 0, Math.PI*2, false);
-            nod_speaker_context.fillStyle = "#3cb371";
+            nod_speaker_context.fillStyle = "#FF404F";
             nod_speaker_context.fill();
         }
     });
