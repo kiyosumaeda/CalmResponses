@@ -33,6 +33,8 @@ var nod_coef = 0.5;
 var nod_audience_data = new NodAudienceData();
 
 var nod_speaker_data = new NodSpeakerData();
+var nod_record_label = ["timestamp", "user_id", "reaction_type", "v_x", "v_y"];
+var reaction_recorder = new ReactionRecorder(nod_record_label);
 
 function checkConnection() {
     while (ws == null) {
@@ -120,6 +122,12 @@ var x_offset_max = 100.0;
 var velocity_ratio = 0.05;
 
 function startNodSpeaker() {
+    document.body.addEventListener("keydown", event => {
+        if (event.key == "s") {
+            reaction_recorder.saveRecord();
+        }
+    })
+
     var nod_speaker_msg_str = JSON.stringify(nod_speaker_data);
     checkConnection();
     ws.send(nod_speaker_msg_str);
@@ -138,6 +146,8 @@ function startNodSpeaker() {
 
             nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
             nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
+
+            reaction_recorder.updateRecordList([received_msg.user_id, received_msg.reaction_type, received_msg.v_x, received_msg.v_y]);
 
             var next_velocity = [received_msg.v_x, received_msg.v_y];
             var old_velocity = cursor_positions[audience_id-1];

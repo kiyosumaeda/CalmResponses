@@ -60,6 +60,10 @@ class NodAudienceData extends AudienceData {
         this.v_x = new_v_x;
         this.v_y = new_v_y;
     }
+
+    getCurrentData() {
+        return [this.user_id, this.reaction_type, this.v_x, this.v_y];
+    }
 }
 
 class NodSpeakerData extends SpeakerData {
