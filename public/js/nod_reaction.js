@@ -144,9 +144,6 @@ function startNodSpeaker() {
                 cursor_x_offset.push(random_x_offset);
             }
 
-            nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
-            nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
-
             reaction_recorder.updateRecordList([received_msg.user_id, received_msg.reaction_type, received_msg.v_x, received_msg.v_y]);
 
             var next_velocity = [received_msg.v_x, received_msg.v_y];
@@ -154,12 +151,24 @@ function startNodSpeaker() {
             var new_x = next_velocity[0] * velocity_ratio + old_velocity[0] * (1-velocity_ratio);
             var new_y = next_velocity[1] * velocity_ratio + old_velocity[1] * (1-velocity_ratio);
             cursor_positions[audience_id-1] = [new_x, new_y];
+
             nod_speaker_context.beginPath();
+            
             var cursor_pos_x = cursor_positions[audience_id-1][0] + nod_speaker_canvas_width/2 + cursor_x_offset[audience_id-1];
             var cursor_pos_y = cursor_positions[audience_id-1][1] + nod_speaker_canvas_height/2;
+
             nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, 4, 0, Math.PI*2, false);
             nod_speaker_context.fillStyle = "#FF404F";
             nod_speaker_context.fill();
         }
     });
+
+    setInterval(fillCanvas, 20);
+}
+
+function fillCanvas() {
+    if (cursor_positions.length > 0) {
+        nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
+        nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
+    }
 }
