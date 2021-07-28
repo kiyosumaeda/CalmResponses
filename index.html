@@ -32,16 +32,11 @@
             </div>
             <p></p>
             <button id="start_system">start</button>
-            <!-- <button id="receiver_start_button">speaker</button>
-            <button id="sender_start_button">audience</button> -->
         </div>
         <div id="nod_audience_container">
             <div id="container">
                 <video id="nod_audience_video" width="800" height="600" autoplay></video>
                 <canvas id="nod_audience_canvas" width="800" height="600"></canvas>
-                <!-- <div id="head_dot_field">
-                    <p id="head_dot"></p>
-                </div> -->
             </div>
             <!-- <div id="dat">
                 <p id="listener_sentence">このタブを開いたままzoomの画面に切り替えてください。</p>
@@ -50,6 +45,9 @@
         <div id="nod_speaker_container">
             <p>nod speaker client</p>
             <canvas id="nod_speaker_canvas"></canvas>
+        </div>
+
+        <div id="system_utility_container">
             <p>残り <span id="time_count">60</span> 秒</p>
             <button id="timer_reset_button">reset</button>
             <button id="timer_start_button">start</button>
@@ -59,6 +57,7 @@
 
         <script src="js/clmtrackr.js"></script>
         <script src="js/model_pca_20_svm.js"></script>
+        <script src="js/system_utility.js"></script>
         <script src="js/reaction_recorder.js"></script>
         <script src="js/clients.js"></script>
         <script src="js/nod_reaction.js"></script>

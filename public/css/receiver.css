@@ -3,6 +3,15 @@
     visibility: hidden;
 }
 
+#nod_speaker_container {
+    position: relative;
+}
+
+#nod_speaker_canvas {
+    transform: scaleX(-1);
+    opacity: 1;
+}
+
 #time_count {
     font-size: 40px;
 }

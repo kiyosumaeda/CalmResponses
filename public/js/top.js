@@ -3,29 +3,13 @@ var start_system_button = document.getElementById("start_system");
 
 var top_container = document.getElementById("top_container");
 
-var receiver_time_count = document.getElementById("time_count");
-
-var system_timer_reset = document.getElementById("timer_reset_button");
-var system_timer_start = document.getElementById("timer_start_button");
-var system_on = document.getElementById("system_on_button");
-var system_off = document.getElementById("system_off_button");
-
 var is_system_condition = true;
-
-var is_speech_starting = true;
-var max_time = 60;
-var time_count = max_time;
 
 var message_json = {
     label: "sender",
     x: 0,
     y: 0,
     id: 0
-};
-
-var admin_message_json = {
-    label: "admin",
-    mode: 1
 };
 
 //menu screen
@@ -56,76 +40,4 @@ function startSystem() {
     } else {
 
     }
-}
-
-//receiver menu
-function startReceiver() {
-    system_timer_reset.addEventListener("click", SystemTimerReset);
-    system_timer_start.addEventListener("click", SystemTimerStart);
-    system_on.addEventListener("click", SystemOn);
-    system_off.addEventListener("click", SystemOff);
-
-    message_json.label = "receiver";
-    var message_string = JSON.stringify(message_json);
-    while(ws == null) {
-        console.log("cccccccccccc");
-    }
-    if (ws != null) {
-        console.log("already connected");
-    }
-    ws.send(message_string);
-    ws.addEventListener("message", function(e) {
-        // console.log(e.data);
-        var server_message = JSON.parse(e.data);
-        console.log(server_message.label);
-        if (server_message.label == "server") {
-            message_json.id = server_message.your_id;
-        } else if (server_message.label == "head_velocity") {
-            
-        } else if (server_message.label == "disconnected_user") {
-
-        } else if (server_message.label == "admin") {
-            if (server_message.mode == 0) {
-                is_system_condition = false;
-            } else {
-                is_system_condition = true;
-            }
-        }
-    });
-
-    setInterval(UpdateTimer, 1000);
-}
-
-function UpdateTimer() {
-    if (is_speech_starting && time_count > 0) {
-        time_count -= 1;
-        receiver_time_count.innerHTML = time_count;
-    }
-    if (time_count <= 0) {
-        is_speech_starting = false;
-    }
-}
-
-function SystemTimerReset() {
-    time_count = max_time;
-    receiver_time_count.innerHTML = time_count;
-    is_speech_starting = false;
-}
-
-function SystemTimerStart() {
-    is_speech_starting = true;
-}
-
-function SystemOn() {
-    admin_message_json.mode = 1;
-    console.log(admin_message_json);
-    var admin_message_string = JSON.stringify(admin_message_json);
-    ws.send(admin_message_string);
-}
-
-function SystemOff() {
-    admin_message_json.mode = 0;
-    console.log(admin_message_json);
-    var admin_message_string = JSON.stringify(admin_message_json);
-    ws.send(admin_message_string);
 }

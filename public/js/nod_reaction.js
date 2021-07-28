@@ -1,6 +1,5 @@
 let host = location.origin.replace(/^http/, "ws");
 let ws = new WebSocket(host);
-let el;
 
 var nod_speaker_container = document.getElementById("nod_speaker_container");
 var nod_audience_container = document.getElementById("nod_audience_container");
@@ -15,6 +14,7 @@ function startNod(client_type_val) {
         startNodAudience();
     } else {
         nod_speaker_container.style.visibility = "visible";
+        startSystemUtility();
         startNodSpeaker();
     }
 }
