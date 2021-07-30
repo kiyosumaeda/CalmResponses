@@ -1,9 +1,4 @@
-#nod_audience_container {
-    position: absolute;
-    visibility: hidden;
-}
-
-#container {
+#nod_audience_media_container {
     position: relative;
 }
 

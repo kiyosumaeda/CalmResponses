@@ -66,6 +66,26 @@ class NodAudienceData extends AudienceData {
     }
 }
 
+class GazeAudienceData extends AudienceData {
+    constructor() {
+        super();
+        this.reaction_type = REACTIONS.GAZE;
+        this.p_x = 0;
+        this.p_y = 0;
+    }
+
+    updateData(new_data) {
+        var new_p_x = new_data[0];
+        var new_p_y = new_data[1];
+        this.p_x = new_p_x;
+        this.p_y = new_p_y;
+    }
+
+    getCurrentData() {
+        return [this.user_id, this.reaction_type, this.p_x, this.p_y];
+    }
+}
+
 class NodSpeakerData extends SpeakerData {
     constructor() {
         super();
@@ -74,5 +94,16 @@ class NodSpeakerData extends SpeakerData {
 
     updateData(nod_audience) {
 
+    }
+}
+
+class GazeSpeakerData extends SpeakerData {
+    constructor() {
+        super();
+        this.reaction_type = REACTIONS.GAZE;
+    }
+
+    updateData(gaze_audience) {
+        
     }
 }

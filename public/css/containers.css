@@ -1,0 +1,33 @@
+#main_container {
+    position: relative;
+    height: 500px;
+}
+
+#top_container {
+    position: absolute;
+    visibility: visible;
+    width: 90%;
+}
+
+#nod_audience_container {
+    position: absolute;
+    visibility: hidden;
+}
+
+#nod_speaker_container {
+    position: absolute;
+}
+
+#gaze_audience_container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+#gaze_speaker_container {
+    position: absolute;
+}
+
+#system_utility_container {
+    position: relative;
+}

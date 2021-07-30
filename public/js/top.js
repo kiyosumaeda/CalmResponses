@@ -38,6 +38,7 @@ function startSystem() {
         top_container.style.visibility = "hidden";
         startNod(client_type_val);
     } else {
-
+        top_container.style.visibility = "hidden";
+        startGaze(client_type_val);
     }
 }

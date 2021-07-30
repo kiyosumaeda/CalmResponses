@@ -1,6 +1,3 @@
-let host = location.origin.replace(/^http/, "ws");
-let ws = new WebSocket(host);
-
 var nod_speaker_container = document.getElementById("nod_speaker_container");
 var nod_audience_container = document.getElementById("nod_audience_container");
 
@@ -9,7 +6,7 @@ nod_audience_container.style.visibility = "hidden";
 
 function startNod(client_type_val) {
     console.log("start nod: ", client_type_val);
-    if (client_type_val == "audience") {
+    if (client_type_val == NAME.AUDIENCE) {
         nod_audience_container.style.visibility = "visible";
         startNodAudience();
     } else {
@@ -35,15 +32,6 @@ var nod_audience_data = new NodAudienceData();
 var nod_speaker_data = new NodSpeakerData();
 var nod_record_label = ["timestamp", "user_id", "reaction_type", "v_x", "v_y"];
 var reaction_recorder = new ReactionRecorder(nod_record_label);
-
-function checkConnection() {
-    while (ws == null) {
-        console.log("connecting ...");
-    }
-    if (ws != null) {
-        console.log("already connected");
-    }
-}
 
 function startNodAudience() {
     nod_audience_video = document.getElementById("nod_audience_video");

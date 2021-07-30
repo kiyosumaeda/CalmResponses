@@ -10,10 +10,11 @@
         let ws = new WebSocket(host);
         let el;
     </script> -->
+    <meta charset="utf-8"><link rel="stylesheet" href="css/containers.css">
     <meta charset="utf-8"><link rel="stylesheet" href="css/top.css">
-    <meta charset="utf-8"><link rel="stylesheet" href="css/listener.css">
-    <meta charset="utf-8"><link rel="stylesheet" href="css/receiver.css">
-    <meta charset="utf-8"><link rel="stylesheet" href="css/admin.css">
+    <meta charset="utf-8"><link rel="stylesheet" href="css/nod_audience.css">
+    <meta charset="utf-8"><link rel="stylesheet" href="css/nod_speaker.css">
+    <meta charset="utf-8"><link rel="stylesheet" href="css/gaze_audience.css">
 </head>
 <body>
     <div id="main_container">
@@ -34,7 +35,7 @@
             <button id="start_system">start</button>
         </div>
         <div id="nod_audience_container">
-            <div id="container">
+            <div id="nod_audience_media_container">
                 <video id="nod_audience_video" width="800" height="600" autoplay></video>
                 <canvas id="nod_audience_canvas" width="800" height="600"></canvas>
             </div>
@@ -46,22 +47,42 @@
             <p>nod speaker client</p>
             <canvas id="nod_speaker_canvas"></canvas>
         </div>
-
-        <div id="system_utility_container">
-            <p>残り <span id="time_count">60</span> 秒</p>
-            <button id="timer_reset_button">reset</button>
-            <button id="timer_start_button">start</button>
-            <button id="system_on_button">on</button>
-            <button id="system_off_button">off</button>
+        <div id="gaze_audience_container">
+            <div id="gaze_audience_calibration">
+                <input type="button" class="calibutton" style="position: absolute; left: 50px; top: 50px"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 0px; top: 50px; left: 0px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 50px; top: 50px"/>
+			    <input type="button" class="calibutton" style="position: absolute; top: 0px; left: 50px; bottom: 0px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 0px; top: 0px; left: 0px; bottom: 0px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 50px; top: 0px; bottom: 0px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; left: 50px; bottom: 50px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 0px; left: 0px; bottom: 50px; margin: auto"/>
+			    <input type="button" class="calibutton" style="position: absolute; right: 50px; bottom: 50px; margin: auto"/>
+            </div>
+            <!-- <div id="gaze_audience_images">
+                <p>gaze audience images</p>
+            </div> -->
         </div>
-
-        <script src="js/clmtrackr.js"></script>
-        <script src="js/model_pca_20_svm.js"></script>
-        <script src="js/system_utility.js"></script>
-        <script src="js/reaction_recorder.js"></script>
-        <script src="js/clients.js"></script>
-        <script src="js/nod_reaction.js"></script>
-        <script src="js/top.js"></script>
+        <div id="gaze_speaker_container">
+            <p>gaze speaker containter</p>
+        </div>
     </div>
+    <div id="system_utility_container">
+        <p>残り <span id="time_count">60</span> 秒</p>
+        <button id="timer_reset_button">reset</button>
+        <button id="timer_start_button">start</button>
+        <button id="system_on_button">on</button>
+        <button id="system_off_button">off</button>
+    </div>
+    <script src="js/clmtrackr.js"></script>
+    <script src="js/model_pca_20_svm.js"></script>
+    <script src="js/webgazer.js"></script>
+    <script src="js/system_utility.js"></script>
+    <script src="js/reaction_recorder.js"></script>
+    <script src="js/response_communication.js"></script>
+    <script src="js/clients.js"></script>
+    <script src="js/nod_reaction.js"></script>
+    <script src="js/gaze_reaction.js"></script>
+    <script src="js/top.js"></script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+#gaze_audience_calibration {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.calibutton {
+    display: inline-block;
+	text-decoration: none;
+	background: #87befd;
+	color: #FFF;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 50%;
+	text-align: center;
+	overflow: hidden;
+	transition: .4s;
+}
+
+.calibutton.black {
+    background: #444444;
+}
