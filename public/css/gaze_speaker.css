@@ -1,0 +1,11 @@
+#base_image {
+    position: absolute;
+    width: 800px;
+    height: 450px;
+}
+
+#gaze_visualization_canvas {
+    position: absolute;
+    width: 800px;
+    height: 450px;
+}

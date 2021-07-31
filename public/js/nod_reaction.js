@@ -123,7 +123,7 @@ function startNodSpeaker() {
         var received_msg = JSON.parse(e.data);
         // console.log(received_msg);
         if (received_msg.name == NAME.SERVER) {
-            nod_speaker_msg_str.id = received_msg.your_id;
+            nod_speaker_data.user_id = received_msg.your_id;
         } else if (received_msg.status == STATUS.DATA) {
             var audience_id = received_msg.user_id;
             while (audience_id > cursor_positions.length) {
