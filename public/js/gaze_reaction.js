@@ -38,13 +38,18 @@ function startGazeAudience() {
         }
     });
 
+    setInterval(sendGazeData, 300);
+
     webgazer.setGazeListener(function(data, elapsedTime) {
         if (data == null) {
             return;
         }
         gaze_audience_data.updateData([data.x/screen_width, data.y/screen_height]);
-        ws.send(JSON.stringify(gaze_audience_data));
     }).begin();
+}
+
+function sendGazeData() {
+    ws.send(JSON.stringify(gaze_audience_data));
 }
 
 var base_image = document.getElementById("base_image");
@@ -69,8 +74,9 @@ function startGazeSpeaker() {
         } else if (received_msg.status == STATUS.DATA) {
             var audience_id = received_msg.user_id;
             var new_audience_data = Object.assign(new GazeAudienceData(), received_msg);
-            gaze_visualizer.checkSequenceList(new_audience_data);
-            gaze_visualizer.visualizeCursors();
+            old_gaze_pos = gaze_visualizer.checkSequenceList(new_audience_data);
+            // gaze_visualizer.visualizeCursors();
+            gaze_visualizer.visualizeHeatmap(old_gaze_pos);
         }
     });
 }
