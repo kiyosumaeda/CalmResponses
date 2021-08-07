@@ -123,7 +123,6 @@ class GazeVisualizer {
         var old_pos_y = old_gaze_pos[1];
         var audience_id = old_gaze_pos[2];
 
-        // var new_center_pos = this.gaze_pos_sequence_list[audience_id-1].getCenterPos();
         this.updateHeatmapValue([old_pos_x, old_pos_y], -1);
         this.updateHeatmapValue(this.gaze_pos_sequence_list[audience_id-1].getLatestPos(), 1);
 
@@ -139,15 +138,14 @@ class GazeVisualizer {
                     this.image_array[pixel_pos+1] = rgb[1];
                     this.image_array[pixel_pos+2] = rgb[2];
                     // var alpha = 0;
-                    var alpha = Math.max(0, heatmap_value - 60);
-                    // if (hsv[0] > 178) {
-                    //     alpha = 60;
-                    // } else {
-                    //     alpha = (60 - 30) / (178 * 178) * hsv[0] * hsv[0] + 30;
-                    // }
-                    // if (hsv[0] > 180) {
-                    //     alpha = 0;
-                    // }
+                    var alpha = Math.max(0, 90 - hsv[0]);
+                    if (hsv[0] < 40) {
+                        alpha = 30;
+                    } else if (hsv[0] < 60) {
+                        alpha = 100;
+                    } else {
+                        alpha = 0;
+                    }
                     this.image_array[pixel_pos+3] = alpha;
                 }
             }

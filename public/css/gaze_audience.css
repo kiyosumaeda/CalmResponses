@@ -24,3 +24,7 @@
 .calibutton.black {
     background: #444444;
 }
+
+#gaze_audience_images {
+	visibility: visible;
+}

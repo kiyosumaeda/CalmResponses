@@ -9,6 +9,7 @@ var system_off_button = document.getElementById("system_off_button");
 var receiver_time_count = document.getElementById("time_count");
 
 var nod_speaker_canvas = document.getElementById("nod_speaker_canvas");
+var gaze_speaker_canvas = document.getElementById("gaze_visualization_canvas");
 
 var is_speech_starting = true;
 var max_time = 60;
@@ -48,8 +49,10 @@ function systemTimerStart() {
 
 function systemOn() {
     nod_speaker_canvas.style.opacity = "1.0";
+    gaze_visualization_canvas.style.opacity = "1.0";
 }
 
 function systemOff() {
     nod_speaker_canvas.style.opacity = "0.0";
+    gaze_visualization_canvas.style.opacity = "0.0";
 }
