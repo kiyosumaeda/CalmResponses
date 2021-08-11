@@ -17,14 +17,16 @@ class GazeButton {
     }
 
     hideButton() {
-        this.button_element.style.visibility = "hidden";
+        this.button_element.remove();
+        // this.button_element.style.visibility = "hidden";
     }
 }
 
 class GazeButtonList {
-    constructor(image_container) {
+    constructor(image_container, calibration_container) {
         this.gaze_button_list = [];
         this.audience_image_container = image_container;
+        this.audience_calibration_container = calibration_container;
         this.is_calibration_finished = false;
     }
 
@@ -38,14 +40,19 @@ class GazeButtonList {
                 }
             }
             if (finished_button_count >= this.gaze_button_list.length) {
-                console.log("finished");
-                for (var i=0; i<this.gaze_button_list.length; i++) {
-                    this.gaze_button_list[i].hideButton();
-                }
-                this.audience_image_container.style.visibility = "visible";
-                this.is_calibration_finished = true;
+                this.finishCalibration();
             }
         });
         this.gaze_button_list.push(gaze_button);
+    }
+
+    finishCalibration() {
+        console.log("finished");
+        for (var i=0; i<this.gaze_button_list.length; i++) {
+            this.gaze_button_list[i].hideButton();
+        }
+        this.audience_calibration_container.remove();
+        this.audience_image_container.style.visibility = "visible";
+        this.is_calibration_finished = true;
     }
 }
