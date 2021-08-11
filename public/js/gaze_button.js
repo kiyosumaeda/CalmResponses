@@ -25,6 +25,7 @@ class GazeButtonList {
     constructor(image_container) {
         this.gaze_button_list = [];
         this.audience_image_container = image_container;
+        this.is_calibration_finished = false;
     }
 
     addButton(gaze_button) {
@@ -42,6 +43,7 @@ class GazeButtonList {
                     this.gaze_button_list[i].hideButton();
                 }
                 this.audience_image_container.style.visibility = "visible";
+                this.is_calibration_finished = true;
             }
         });
         this.gaze_button_list.push(gaze_button);

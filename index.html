@@ -16,6 +16,7 @@
     <meta charset="utf-8"><link rel="stylesheet" href="css/nod_speaker.css">
     <meta charset="utf-8"><link rel="stylesheet" href="css/gaze_audience.css">
     <meta charset="utf-8"><link rel="stylesheet" href="css/gaze_speaker.css">
+    <meta charset="utf-8"><link rel="stylesheet" href="css/gaze_util.css">
 </head>
 <body>
     <div id="main_container">
@@ -62,11 +63,15 @@
             </div>
             <div id="gaze_audience_images">
                 <p>gaze audience images</p>
+                <div id="image_list">
+                    <img id="audience_image1" src="image/world_map1.png">
+                </div>
             </div>
         </div>
         <div id="gaze_speaker_container">
             <p>gaze speaker containter</p>
-            <img id="base_image" src="image/pictures1.png">
+            <a id="spot_cursor"></a>
+            <img id="base_image" src="image/world_map1.png">
             <canvas id="gaze_visualization_canvas" width="800" height="450"></canvas>
         </div>
     </div>

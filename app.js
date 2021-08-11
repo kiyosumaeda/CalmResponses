@@ -64,14 +64,20 @@ wss.on("connection", (ws) => {
         }
 
         if (message_json.name == "speaker") {
-            receiverClients.push(ws);
-            to_client_json.your_id = receiverClients.length;
-            ws.send(JSON.stringify(to_client_json));
+            if (message_json.status == "start") {
+                receiverClients.push(ws);
+                to_client_json.your_id = receiverClients.length;
+                ws.send(JSON.stringify(to_client_json));
+            }
         }
 
         if (message_json.status == "data") {
             receiverClients.forEach(receiver => {
                 receiver.send(message);
+            });
+        } else if (message_json.status == "speaker_data") {
+            senderClients.forEach(audience => {
+                audience.send(message);
             });
         }
     });

@@ -103,6 +103,8 @@ nod_speaker_canvas_height = 400;
 nod_speaker_canvas.width = nod_speaker_canvas_width;
 nod_speaker_canvas.height = nod_speaker_canvas_height;
 
+var cursor_radius = 8;
+
 var cursor_positions = [];
 var cursor_x_offset = [];
 var x_offset_min = -100.0;
@@ -145,7 +147,7 @@ function startNodSpeaker() {
             var cursor_pos_x = cursor_positions[audience_id-1][0] + nod_speaker_canvas_width/2 + cursor_x_offset[audience_id-1];
             var cursor_pos_y = cursor_positions[audience_id-1][1] + nod_speaker_canvas_height/2;
 
-            nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, 4, 0, Math.PI*2, false);
+            nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, cursor_radius, 0, Math.PI*2, false);
             nod_speaker_context.fillStyle = "#FF404F";
             nod_speaker_context.fill();
         }

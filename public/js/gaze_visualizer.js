@@ -141,7 +141,7 @@ class GazeVisualizer {
                     var alpha = Math.max(0, 90 - hsv[0]);
                     if (hsv[0] < 40) {
                         alpha = 30;
-                    } else if (hsv[0] < 60) {
+                    } else if (hsv[0] < 90) {
                         alpha = 100;
                     } else {
                         alpha = 0;
@@ -158,7 +158,7 @@ class GazeVisualizer {
         var c_p_y = Math.floor(center_pos[1]*this.image_height);
         // c_p_x = 400;
         // c_p_y = 225;
-        console.log(c_p_x, c_p_y);
+        // console.log(c_p_x, c_p_y);
 
         for (var y=c_p_y-this.heatmap_radius; y<c_p_y+this.heatmap_radius; y++) {
             for (var x=c_p_x-this.heatmap_radius; x<c_p_x+this.heatmap_radius; x++) {

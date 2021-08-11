@@ -18,6 +18,23 @@ var gaze_speaker_data = new GazeSpeakerData();
 var gaze_record_label = ["timestamp", "user_id", "reaction_type", "p_x", "p_y"];
 var reaction_recorder = new ReactionRecorder(nod_record_label);
 
+var spot_cursor_width = 20;
+var spot_cursor_height = 20;
+
+function createSpotCursor(pos_x, pos_y) {
+    var new_spot_cursor = document.createElement("a");
+    new_spot_cursor.id = "spot_cursor";
+    new_spot_cursor.style.width = spot_cursor_width + "px";
+    new_spot_cursor.style.height = spot_cursor_height + "px";
+    new_spot_cursor.style.left = pos_x - spot_cursor_width + "px";
+    new_spot_cursor.style.top = pos_y - spot_cursor_height + "px";
+    new_spot_cursor.addEventListener("click", (e) => {
+        console.log("aaaaaaa");
+        new_spot_cursor.remove();
+    });
+    gaze_speaker_container.appendChild(new_spot_cursor);
+}
+
 function startGaze(client_type_val) {
     console.log("start gaze: ", client_type_val);
     if (client_type_val == NAME.AUDIENCE) {
@@ -49,6 +66,12 @@ function startGazeAudience() {
         if (received_msg.name == NAME.SERVER) {
             gaze_audience_data.user_id = received_msg.your_id;
             gaze_audience_data.status = STATUS.DATA;
+        } else if (received_msg.name == NAME.SPEAKER) {
+            if (received_msg.status == STATUS.SPEAKERDATA) {
+                if (gaze_button_list.is_calibration_finished) {
+                    console.log(received_msg.c_x, received_msg.c_y);
+                }
+            }
         }
     });
 
@@ -69,6 +92,13 @@ function sendGazeData() {
 var base_image = document.getElementById("base_image");
 var gaze_visualization_canvas = document.getElementById("gaze_visualization_canvas");
 
+gaze_visualization_canvas.addEventListener("click", (e) => {
+    console.log(e.offsetX, e.offsetY);
+    gaze_speaker_data.updateCursorPos(e.offsetX, e.offsetY);
+    ws.send(JSON.stringify(gaze_speaker_data));
+    createSpotCursor(e.pageX, e.pageY);
+});
+
 var gaze_visualizer = new GazeVisualizer(gaze_visualization_canvas);
 
 function startGazeSpeaker() {
@@ -83,6 +113,7 @@ function startGazeSpeaker() {
     ws.send(gaze_speaker_msg_str);
     ws.addEventListener("message", function(e) {
         var received_msg = JSON.parse(e.data);
+        // console.log(received_msg);
         if (received_msg.name == NAME.SERVER) {
             gaze_speaker_data.user_id = received_msg.your_id;
         } else if (received_msg.status == STATUS.DATA) {

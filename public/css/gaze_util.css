@@ -1,0 +1,10 @@
+#spot_cursor {
+    display: inline-block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 100px;
+    left: 100px;
+    border-radius: 50%;
+    background: #d6604b;
+}

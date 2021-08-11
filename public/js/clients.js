@@ -13,6 +13,7 @@ var REACTIONS = {
 var STATUS = {
     START: "start",
     DATA: "data",
+    SPEAKERDATA: "speaker_data",
     END: "end"
 }
 
@@ -101,6 +102,14 @@ class GazeSpeakerData extends SpeakerData {
     constructor() {
         super();
         this.reaction_type = REACTIONS.GAZE;
+        this.c_x = 0;
+        this.c_y = 0;
+    }
+
+    updateCursorPos(new_c_x, new_c_y) {
+        this.status = STATUS.SPEAKERDATA;
+        this.c_x = new_c_x;
+        this.c_y = new_c_y;
     }
 
     updateData(gaze_audience) {
