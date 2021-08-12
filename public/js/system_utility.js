@@ -1,5 +1,4 @@
 var system_utility_container = document.getElementById("system_utility_container");
-system_utility_container.style.visibility = "hidden";
 
 var timer_reset_button = document.getElementById("timer_reset_button");
 var timer_start_button = document.getElementById("timer_start_button");

@@ -16,18 +16,22 @@
 
 #nod_speaker_container {
     position: absolute;
+    visibility: hidden;
 }
 
 #gaze_audience_container {
     position: absolute;
     width: 90vw;
     height: 90vh;
+    visibility: hidden;
 }
 
 #gaze_speaker_container {
     position: absolute;
+    visibility: hidden;
 }
 
 #system_utility_container {
     position: relative;
+    visibility: hidden;
 }

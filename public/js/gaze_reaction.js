@@ -11,7 +11,7 @@ var gaze_audience_images = document.getElementById("gaze_audience_images");
 var audience_image = document.getElementById("audience_image1");
 var image_name_list = ["world_map1.png", "world_map2.png"];
 var current_image_index = 0;
-gaze_audience_images.style.visibility = "hidden";
+// gaze_audience_images.style.visibility = "hidden";
 
 var gaze_button_num = 9;
 var gaze_calibration_buttons;
