@@ -14,6 +14,7 @@ var STATUS = {
     START: "start",
     DATA: "data",
     SPEAKERDATA: "speaker_data",
+    CLEARSPOT: "clear_spot",
     END: "end"
 }
 

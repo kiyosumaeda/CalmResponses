@@ -1,4 +1,4 @@
-#spot_cursor {
+.spot_cursor {
     display: inline-block;
     position: absolute;
     width: 20px;

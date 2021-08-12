@@ -75,7 +75,7 @@ wss.on("connection", (ws) => {
             receiverClients.forEach(receiver => {
                 receiver.send(message);
             });
-        } else if (message_json.status == "speaker_data") {
+        } else if (message_json.status == "speaker_data" || message_json.status == "clear_spot") {
             senderClients.forEach(audience => {
                 audience.send(message);
             });

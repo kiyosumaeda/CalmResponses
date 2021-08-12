@@ -13,7 +13,6 @@ class GazeButton {
             this.button_element.style.background = this.finished_col;
             this.is_finished = true;
         }
-        console.log("count: ", this.press_count);
     }
 
     hideButton() {
