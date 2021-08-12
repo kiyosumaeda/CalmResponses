@@ -1,3 +1,12 @@
+#calibration_instruction {
+	position: absolute;
+	user-select: none;
+	text-align: center;
+	left: 0px;
+	right: 0px;
+	top: 200px;
+}
+
 #gaze_audience_calibration {
     position: absolute;
     width: 100vw;
