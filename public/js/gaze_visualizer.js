@@ -43,7 +43,7 @@ class GazePosSequence {
 }
 
 class GazeVisualizer {
-    constructor(canvas) {
+    constructor(canvas, slider_list) {
         this.context = canvas.getContext("2d");
         this.image_data = this.context.getImageData(0, 0, canvas.width, canvas.height);
         this.image_width = this.image_data.width;
@@ -61,6 +61,28 @@ class GazeVisualizer {
         }
 
         this.cursor_col = [255, 0, 0, 200];
+
+        this.slider_list = slider_list;
+        this.d1 = 40;
+        this.d2 = 90;
+        this.d3 = 100;
+        this.a1 = 40;
+        this.a2 = 100;
+        this.slider_list[0].addEventListener("input", (e) => {
+            this.d1 = e.target.value;
+        });
+        this.slider_list[1].addEventListener("input", (e) => {
+            this.d2 = e.target.value;
+        });
+        this.slider_list[2].addEventListener("input", (e) => {
+            this.d3 = e.target.value;
+        });
+        this.slider_list[3].addEventListener("input", (e) => {
+            this.a1 = e.target.value;
+        });
+        this.slider_list[4].addEventListener("input", (e) => {
+            this.a2 = e.target.value;
+        });
     }
 
     checkSequenceList(gaze_audience_data) {
@@ -89,18 +111,11 @@ class GazeVisualizer {
                 this.image_array[pixel_pos+3] = 0;
             }
         }
-        // this.context.fillStyle = "rgba(255, 255, 255, 0)";
-        // this.context.fillStyle = "rgba(0, 0, 0, 0.05)";
-        // this.context.fillRect(0, 0, this.image_width, this.image_height);
         for (var i=0; i<this.gaze_pos_sequence_list.length; i++) {
             var center_pos = this.gaze_pos_sequence_list[i].getCenterPos();
             var c_p_x = Math.floor(center_pos[0]*this.image_width);
             var c_p_y = Math.floor(center_pos[1]*this.image_height);
             console.log(c_p_x, c_p_y);
-            // this.context.beginPath();
-            // this.context.arc(c_p_x, c_p_y, 4, 0, Math.PI*2, false);
-            // this.context.fillStyle = "#FF404F";
-            // this.context.fill();
             for (var y=c_p_y-this.gaze_radius; y<c_p_y+this.gaze_radius; y++) {
                 for (var x=c_p_x-this.gaze_radius; x<c_p_x+this.gaze_radius; x++) {
                     var dist = (x-c_p_x)*(x-c_p_x) + (y-c_p_y)*(y-c_p_y);
@@ -139,10 +154,12 @@ class GazeVisualizer {
                     this.image_array[pixel_pos+2] = rgb[2];
                     // var alpha = 0;
                     var alpha = Math.max(0, 90 - hsv[0]);
-                    if (hsv[0] < 40) {
-                        alpha = 30;
-                    } else if (hsv[0] < 90) {
-                        alpha = 100;
+                    if (hsv[0] < this.d1) {
+                        alpha = this.a1;
+                    } else if (hsv[0] < this.d2) {
+                        alpha = this.a1 + (this.a2 - this.a1) / (this.d2 - this.d1) * (hsv[0] - this.d1);
+                    } else if (hsv[0] < this.d3) {
+                        alpha = this.d3 + this.a2 / (this.d2 - this.d3) * hsv[0];
                     } else {
                         alpha = 0;
                     }

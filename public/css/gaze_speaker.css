@@ -10,3 +10,12 @@
     width: 800px;
     height: 450px;
 }
+
+#gaze_visualization_sliders {
+    display: relative;
+    visibility: hidden;
+}
+
+.gaze_sliders {
+    width: 200px;
+}
