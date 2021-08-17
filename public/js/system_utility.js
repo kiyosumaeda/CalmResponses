@@ -11,7 +11,7 @@ var nod_speaker_canvas = document.getElementById("nod_speaker_canvas");
 var gaze_speaker_canvas = document.getElementById("gaze_visualization_canvas");
 
 var is_speech_starting = true;
-var max_time = 60;
+var max_time = 120;
 var time_count = max_time;
 
 function startSystemUtility() {

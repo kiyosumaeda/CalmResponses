@@ -147,7 +147,7 @@ class GazeVisualizer {
                 var hsv = [0, 1, 1];
                 hsv[0] = Math.max(0, 180 - heatmap_value);
                 var rgb = this.hsvToRgb(hsv[0], 1, 1);
-                if (heatmap_value > -1) {
+                if (heatmap_value > 10) {
                     var pixel_pos = (y * this.image_width + x) * 4;
                     this.image_array[pixel_pos+0] = rgb[0];
                     this.image_array[pixel_pos+1] = rgb[1];
