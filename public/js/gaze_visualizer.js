@@ -54,7 +54,7 @@ class GazeVisualizer {
         this.gaze_pos_sequence_list = [];
 
         this.gaze_radius = 5;
-        this.heatmap_radius = 80;
+        this.heatmap_radius = 60;
         this.heatmap_values = new Array(this.image_height);
         for (var y=0; y<this.image_height; y++) {
             this.heatmap_values[y] = new Array(this.image_width).fill(0);
@@ -64,7 +64,7 @@ class GazeVisualizer {
 
         this.slider_list = slider_list;
         this.d1 = 40;
-        this.d2 = 90;
+        this.d2 = 60;
         this.d3 = 100;
         this.a1 = 40;
         this.a2 = 100;
@@ -145,9 +145,10 @@ class GazeVisualizer {
             for (var x=0; x<this.image_width; x++) {
                 var heatmap_value = this.heatmap_values[y][x];
                 var hsv = [0, 1, 1];
-                hsv[0] = Math.max(0, 180 - heatmap_value);
+                hsv[0] = Math.max(0, Math.max(-3.0 * heatmap_value + 180, -0.1 * heatmap_value + 93));
+                // hsv[0] = Math.max(0, 180 - heatmap_value / 2);
                 var rgb = this.hsvToRgb(hsv[0], 1, 1);
-                if (heatmap_value > 10) {
+                if (heatmap_value > -1) {
                     var pixel_pos = (y * this.image_width + x) * 4;
                     this.image_array[pixel_pos+0] = rgb[0];
                     this.image_array[pixel_pos+1] = rgb[1];
@@ -159,7 +160,7 @@ class GazeVisualizer {
                     } else if (hsv[0] < this.d2) {
                         alpha = this.a1 + (this.a2 - this.a1) / (this.d2 - this.d1) * (hsv[0] - this.d1);
                     } else if (hsv[0] < this.d3) {
-                        alpha = this.d3 + this.a2 / (this.d2 - this.d3) * hsv[0];
+                        alpha = this.a2 / (this.d2 - this.d3) * (hsv[0] - this.d3);
                     } else {
                         alpha = 0;
                     }
