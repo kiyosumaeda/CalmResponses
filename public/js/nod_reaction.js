@@ -83,7 +83,7 @@ function showData(pos) {
     var current_pos_y = pos[62][1];
     var current_time = new Date();
     var time_diff = current_time.getTime() - nod_prev_time.getTime();
-    var velocity_x = (current_pos_x - nod_prev_pos_x) / time_diff * 400.0 * nod_coef;
+    var velocity_x = (current_pos_x - nod_prev_pos_x) / time_diff * 2000.0 * nod_coef;
     var velocity_y = (current_pos_y - nod_prev_pos_y) / time_diff * 6000.0 * nod_coef;
     str = "feature" + 62 + ": (" + velocity_x + ", " + velocity_y + ")";
     // UpdateHeadDot(velocity_x, velocity_y, 0);
@@ -107,8 +107,8 @@ var cursor_radius = 8;
 
 var cursor_positions = [];
 var cursor_x_offset = [];
-var x_offset_min = -100.0;
-var x_offset_max = 100.0;
+var x_offset_min = -40.0;
+var x_offset_max = 40.0;
 var velocity_ratio = 0.05;
 
 function startNodSpeaker() {
