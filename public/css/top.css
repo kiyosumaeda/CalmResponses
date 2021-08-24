@@ -1,39 +1,19 @@
-#receiver_start_button {
-    display: inline-block;
-    text-decoration: none;
-    color: #FF8972;
-    width: 360px;
-    height: 360px;
-    line-height: 120px;
-    border-radius: 50%;
-    border: solid 2px #FF8972;
-    text-align: center;
-    overflow: hidden;
-    font-weight: bold;
-    font-size: 50px;
-    transition: .4s;
+#title {
+    font-size: 30px;
 }
 
-#receiver_start_button:hover {
-    background: #b3e1ff;
+#explanation {
+    font-size: 16px;
 }
 
-#sender_start_button {
-    display: inline-block;
-    text-decoration: none;
-    color: #FF8972;
-    width: 360px;
-    height: 360px;
-    line-height: 120px;
-    border-radius: 50%;
-    border: solid 2px #FF8972;
-    text-align: center;
-    overflow: hidden;
-    font-weight: bold;
-    font-size: 50px;
-    transition: .4s;
+#setting {
+    font-size: 24px;
 }
 
-#sender_start_button:hover {
-    background: #b3e1ff;
+#client_label {
+    font-size: 20px;
+}
+
+#reaction_label {
+    font-size: 20px;
 }

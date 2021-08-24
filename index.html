@@ -21,15 +21,16 @@
 <body>
     <div id="main_container">
         <div id="top_container">
-            <p id="title">Reaction Feedback System</p>
-            <p id="explanation">このシステムはオンラインで話者に対して反応を返すことのできるシステムです。</p>
+            <p id="title">CalmResponses</p>
+            <p id="explanation">a system that gets and displays audience eye gaze and nodding reactions.</p>
+            <p id="setting">Setting</p>
             <div id="client_select_container">
-                <p id="client_label">クライアントを選択</p>
+                <p id="client_label">Choose clients</p>
                 <label><input type="radio" name="client_type" value="audience" checked>audience</label>
                 <label><input type="radio" name="client_type" value="speaker">speaker</label>
             </div>
             <div id="reaction_select_container">
-                <p id="reaction_label">反応を選択</p>
+                <p id="reaction_label">Choose reactions</p>
                 <label><input type="radio" name="reaction_type" value="gaze" checked>gaze</label>
                 <label><input type="radio" name="reaction_type" value="nodding">head orientation</label>
             </div>
@@ -37,6 +38,7 @@
             <button id="start_system">start</button>
         </div>
         <div id="nod_audience_container">
+            <p>nod audience container</p>
             <div id="nod_audience_media_container">
                 <video id="nod_audience_video" width="800" height="600" autoplay></video>
                 <canvas id="nod_audience_canvas" width="800" height="600"></canvas>
@@ -50,12 +52,12 @@
             <canvas id="nod_speaker_canvas"></canvas>
         </div>
         <div id="gaze_audience_container">
-            <div id="calibration_instruction">
+            <!-- <div id="calibration_instruction">
                 <p>最初に視線のキャリブレーションを行います。</p>
                 <p>9つの点を視線とマウスカーソルの位置を合わせながら黒くなるまでクリックしてください。</p>
                 <p>クリックすると赤い点が表示されます。赤い点は大まかな視線位置です。</p>
                 <p>全て黒くなりましたら画面が世界地図か日本地図に切り替わります。</p>
-            </div>
+            </div> -->
             <div id="gaze_audience_calibration">
                 <input type="button" class="calibutton" id="calibutton1" style="position: absolute; left: 50px; top: 50px"/>
 			    <input type="button" class="calibutton" id="calibutton2" style="position: absolute; right: 0px; top: 50px; left: 0px; margin: auto"/>
@@ -80,7 +82,7 @@
         </div>
     </div>
     <div id="system_utility_container">
-        <p>残り <span id="time_count">60</span> 秒</p>
+        <p><span id="time_count">120</span> seconds left</p>
         <button id="timer_reset_button">reset</button>
         <button id="timer_start_button">start</button>
         <button id="system_on_button">on</button>
