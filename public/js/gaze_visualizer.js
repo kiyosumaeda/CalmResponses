@@ -7,8 +7,8 @@ class GazePosSequence {
             this.pos_x_queue.push(2000.0);
             this.pos_y_queue.push(2000.0);
         }
-        this.pos_x_sum = 0.0;
-        this.pos_y_sum = 0.0;
+        this.pos_x_sum = 2000.0 * sn;
+        this.pos_y_sum = 2000.0 * sn;
         this.latest_pos_x = 0.0;
         this.latest_pos_y = 0.0;
     }
@@ -54,7 +54,7 @@ class GazeVisualizer {
         this.gaze_pos_sequence_list = [];
 
         this.gaze_radius = 5;
-        this.heatmap_radius = 60;
+        this.heatmap_radius = 100;
         this.heatmap_values = new Array(this.image_height);
         for (var y=0; y<this.image_height; y++) {
             this.heatmap_values[y] = new Array(this.image_width).fill(0);
@@ -113,6 +113,7 @@ class GazeVisualizer {
         }
         for (var i=0; i<this.gaze_pos_sequence_list.length; i++) {
             var center_pos = this.gaze_pos_sequence_list[i].getCenterPos();
+            console.log(center_pos);
             var c_p_x = Math.floor(center_pos[0]*this.image_width);
             var c_p_y = Math.floor(center_pos[1]*this.image_height);
             console.log(c_p_x, c_p_y);

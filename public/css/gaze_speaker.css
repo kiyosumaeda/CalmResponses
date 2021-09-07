@@ -3,6 +3,7 @@
     position: absolute;
     width: 800px;
     height: 450px;
+    opacity: 1.0;
 }
 
 #gaze_visualization_canvas {

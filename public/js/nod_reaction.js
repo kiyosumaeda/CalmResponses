@@ -148,7 +148,7 @@ function startNodSpeaker() {
             var cursor_pos_y = cursor_positions[audience_id-1][1] + nod_speaker_canvas_height/2;
 
             nod_speaker_context.arc(cursor_pos_x, cursor_pos_y, cursor_radius, 0, Math.PI*2, false);
-            nod_speaker_context.fillStyle = "#FF404F";
+            nod_speaker_context.fillStyle = "#E03C00";
             nod_speaker_context.fill();
         }
     });
@@ -159,6 +159,7 @@ function startNodSpeaker() {
 function fillCanvas() {
     if (cursor_positions.length > 0) {
         nod_speaker_context.fillStyle = "rgba(0, 0, 0, 0.05)";
+        // nod_speaker_context.fillStyle = "rgba(255, 255, 255, 0.1)";
         nod_speaker_context.fillRect(0, 0, nod_speaker_canvas_width, nod_speaker_canvas_height);
     }
 }
